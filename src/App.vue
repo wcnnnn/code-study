@@ -1,7 +1,8 @@
 <template>
   <div class="app-container" :class="{ 'dark-mode': isDarkMode }">
+    <BackgroundAnimation />
     <!-- 顶部导航栏 -->
-    <nav class="navbar">
+    <nav class="navbar animate__animated animate__fadeInDown">
       <div class="nav-left">
         <button class="toggle-btn" @click="toggleSidebar">
           <i class="fas fa-bars"></i>
@@ -23,7 +24,7 @@
     <div class="main-content">
       <Sidebar :class="{ 'collapsed': isSidebarCollapsed }" />
       <div class="content-container">
-        <div class="breadcrumb">
+        <div class="breadcrumb animate__animated animate__fadeIn">
           <router-link to="/">首页</router-link>
           <template v-for="(item, index) in breadcrumbs" :key="index">
             <span class="separator">/</span>
@@ -31,7 +32,12 @@
           </template>
         </div>
         <router-view v-slot="{ Component }">
-          <transition name="page" mode="out-in">
+          <transition 
+            name="page"
+            mode="out-in"
+            enter-active-class="animate__animated animate__fadeInUp"
+            leave-active-class="animate__animated animate__fadeOutUp"
+          >
             <component :is="Component" />
           </transition>
         </router-view>
@@ -41,9 +47,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import Sidebar from './components/Sidebar.vue'
+import BackgroundAnimation from './components/BackgroundAnimation.vue'
 
 const isDarkMode = ref(false)
 const isSidebarCollapsed = ref(false)
@@ -56,6 +63,11 @@ const toggleTheme = () => {
 
 const toggleSidebar = () => {
   isSidebarCollapsed.value = !isSidebarCollapsed.value
+  if (isSidebarCollapsed.value) {
+    document.documentElement.style.setProperty('--sidebar-width', '60px')
+  } else {
+    document.documentElement.style.setProperty('--sidebar-width', '220px')
+  }
 }
 
 const breadcrumbs = computed(() => {
@@ -64,6 +76,16 @@ const breadcrumbs = computed(() => {
     name: path.charAt(0).toUpperCase() + path.slice(1),
     path: '/' + paths.slice(0, index + 1).join('/')
   }))
+})
+
+onMounted(() => {
+  // 动态导入 AOS
+  import('aos').then(AOS => {
+    AOS.default.init({
+      duration: 1000,
+      once: true
+    })
+  })
 })
 </script>
 
@@ -147,23 +169,46 @@ const breadcrumbs = computed(() => {
 
 .main-content {
   display: flex;
-  padding-top: 60px;
   min-height: calc(100vh - 60px);
+  padding-top: 60px;
 }
 
 .content-container {
   flex: 1;
-  padding: 20px;
-  max-width: calc(100% - var(--sidebar-width));
-  transition: max-width 0.3s;
+  padding: 20px 40px;
+  margin-left: var(--sidebar-width);
+  transition: all 0.3s ease;
+  width: calc(100% - var(--sidebar-width));
+  max-width: none;
+  min-height: 100vh;
+}
+
+.sidebar.collapsed ~ .content-container {
+  margin-left: 60px;
+  width: calc(100% - 60px);
+}
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
 }
 
 .breadcrumb {
-  margin-bottom: 20px;
-  padding: 8px 16px;
+  position: sticky;
+  top: 60px;
+  z-index: 99;
+  margin-bottom: 24px;
+  padding: 12px 16px;
   background-color: var(--breadcrumb-bg);
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
 }
 
 .breadcrumb a {
@@ -199,7 +244,7 @@ const breadcrumbs = computed(() => {
   --input-bg: #ffffff;
   --icon-color: #909399;
   --breadcrumb-bg: #f8f9fa;
-  --sidebar-width: 250px;
+  --sidebar-width: 220px;
 }
 
 /* 暗色主题 */
@@ -231,5 +276,93 @@ const breadcrumbs = computed(() => {
 .page-leave-to {
   opacity: 0;
   transform: translateY(-20px);
+}
+
+/* 添加玻璃拟态效果 */
+.navbar, .sidebar, .content-container {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .navbar,
+.dark-theme .sidebar,
+.dark-theme .content-container {
+  background-color: rgba(15, 23, 42, 0.9);
+}
+
+/* 添加卡片悬浮效果 */
+pre, .menu-item, .search-box input {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+pre:hover, .menu-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme pre:hover,
+.dark-theme .menu-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 添加按钮动画效果 */
+.toggle-btn, .theme-btn {
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover, .theme-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 添加滚动显示动画 */
+[data-aos] {
+  pointer-events: none;
+}
+
+[data-aos].aos-animate {
+  pointer-events: auto;
+}
+
+/* 优化代码块样式 */
+pre {
+  position: relative;
+  overflow: hidden;
+}
+
+pre::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--code-block-bg));
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+  .content-container {
+    padding: 20px;
+  }
+  
+  .content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 16px;
+  }
+  
+  .breadcrumb {
+    margin-bottom: 16px;
+    padding: 8px 12px;
+  }
+  
+  .navbar {
+    padding: 0 16px;
+  }
 }
 </style>

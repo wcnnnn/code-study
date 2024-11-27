@@ -56,4 +56,6 @@ const router = createRouter({
 })
 
 app.use(router)
+
+// 初始化应用
 app.mount('#app')

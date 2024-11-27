@@ -125,9 +125,12 @@ watch(
 
 <style scoped>
 .content {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 24px;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .error-message {
@@ -146,29 +149,39 @@ watch(
   color: var(--text-secondary);
 }
 
-:deep(pre) {
-  position: relative !important;
-  padding: 2.5em 1.5em 1.5em !important;
-  background: var(--code-block-bg) !important;
-  border-radius: 8px !important;
-  overflow: auto !important;
-  margin: 1.5em 0 !important;
+/* 标题样式优化 */
+:deep(h1) {
+  font-size: 2.2em;
+  margin: 0 0 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid var(--border-color);
 }
 
-:deep(code) {
-  font-family: 'Fira Code', monospace !important;
-  font-size: 0.9em !important;
-  line-height: 1.5 !important;
-  padding: 0 !important;
+:deep(h2) {
+  font-size: 1.8em;
+  margin: 1.5em 0 1em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-color);
 }
 
-:deep(pre::before) {
-  content: attr(data-lang);
-  position: absolute !important;
-  top: 0.5em !important;
-  left: 1em !important;
-  font-size: 0.8em !important;
-  color: var(--text-secondary) !important;
-  opacity: 0.7 !important;
+/* 段落间距优化 */
+:deep(p) {
+  margin: 1.2em 0;
+  line-height: 1.8;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+  
+  :deep(h1) {
+    font-size: 1.8em;
+  }
+  
+  :deep(h2) {
+    font-size: 1.5em;
+  }
 }
 </style>
