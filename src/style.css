@@ -1,0 +1,326 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 亮色主题变量 */
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --bg-color: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-color: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --code-bg: #f8fafc;
+  --code-block-bg: #1e293b;
+  --code-block-text: #e2e8f0;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-track: #f1f5f9;
+}
+
+.dark-theme {
+  /* 暗色主题变量 */
+  --primary-color: #60a5fa;
+  --primary-hover: #3b82f6;
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-color: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --code-bg: #1e293b;
+  --code-block-bg: #0f172a;
+  --code-block-text: #e2e8f0;
+  --scrollbar-thumb: #475569;
+  --scrollbar-track: #1e293b;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Markdown 样式优化 */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin: 1.5em 0 0.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin: 1.2em 0 0.6em;
+}
+
+p {
+  margin: 1em 0;
+  line-height: 1.7;
+}
+
+code {
+  background-color: #f6f8fa;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+ul, ol {
+  padding-left: 2em;
+  line-height: 1.7;
+}
+
+blockquote {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid #42b883;
+  background-color: #f8f8f8;
+  color: #666;
+}
+
+/* 图片样式 */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 1em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid #dfe2e5;
+  padding: 0.6em 1em;
+}
+
+th {
+  background-color: #f6f8fa;
+}
+
+tr:nth-child(2n) {
+  background-color: #fafafa;
+}
+
+a {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+/* 代码块样式优化 */
+pre {
+  background: var(--code-block-bg) !important;
+  border-radius: 12px !important;
+  padding: 2.5em 1.5em 1.5em !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dark-theme pre {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+pre code {
+  color: var(--code-block-text) !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  display: block !important;
+}
+
+/* 代码语言标识优化 */
+pre[data-lang]::before {
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+/* 行内代码样式 */
+:not(pre) > code {
+  background: var(--code-bg) !important;
+  color: var(--text-color) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.9em !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* 导航栏样式优化 */
+.navbar {
+  backdrop-filter: blur(8px) !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark-theme .navbar {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* 搜索框样式优化 */
+.search-box input {
+  width: 240px !important;
+  height: 36px !important;
+  padding: 0 40px 0 16px !important;
+  border-radius: 18px !important;
+  transition: all 0.3s ease !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.search-box input:focus {
+  width: 300px !important;
+  box-shadow: 0 0 0 2px var(--primary-color) !important;
+}
+
+.search-box i {
+  color: var(--text-secondary) !important;
+  transition: color 0.3s ease !important;
+}
+
+.search-box:hover i {
+  color: var(--primary-color) !important;
+}
+
+/* 侧边栏样式优化 */
+.sidebar {
+  background-color: var(--bg-secondary) !important;
+  border-right: none !important;
+  box-shadow: inset -1px 0 0 var(--border-color) !important;
+}
+
+.menu-title {
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.menu-item {
+  margin: 2px 8px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.menu-item.active {
+  font-weight: 500 !important;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+/* 内容区域样式优化 */
+.content-container {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 40px !important;
+}
+
+/* 面包屑导航优化 */
+.breadcrumb {
+  background: transparent !important;
+  padding: 12px 0 !important;
+  margin-bottom: 32px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.breadcrumb a {
+  color: var(--text-secondary) !important;
+  transition: color 0.2s ease !important;
+}
+
+.breadcrumb a:hover {
+  color: var(--primary-color) !important;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 12px !important;
+  }
+  
+  .search-box input {
+    width: 180px !important;
+  }
+  
+  .search-box input:focus {
+    width: 220px !important;
+  }
+  
+  .content-container {
+    padding: 20px !important;
+  }
+  
+  .sidebar {
+    width: 240px !important;
+  }
+  
+  .sidebar.collapsed {
+    width: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem !important;
+  }
+  
+  .search-box {
+    display: none !important;
+  }
+  
+  h1 {
+    font-size: 1.8em !important;
+  }
+  
+  h2 {
+    font-size: 1.5em !important;
+  }
+}
