@@ -49,7 +49,17 @@ const menuItems = reactive([
     isOpen: false,
     children: [
       { title: '线性回归', path: '/basic/线性回归' },
-      { title: '二分查找', path: '/array/线性回归' }
+      { title: '岭回归', path: '/basic/岭回归' },
+      { title: 'Lasso回归', path: '/basic/LASSO' },
+      { title: '弹性网络回归', path: '/basic/弹性网络' },
+      { title: '非线性', path: '/basic/非线性' },
+      { title: '多项式回归', path: '/basic/多项式' },
+      { title: '样条回归', path: '/basic/样条' },
+      { title: 'Lasso回归', path: '/basic/LASSO' },
+      { title: 'Lasso回归', path: '/basic/LASSO' },
+      { title: 'Lasso回归', path: '/basic/LASSO' },
+      { title: 'Lasso回归', path: '/basic/LASSO' },
+
     ]
   },
   {
